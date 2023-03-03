@@ -3,8 +3,6 @@ const { validation, ctrlWrapper } = require("../../middlewares");
 const { schema } = require("../../shcema");
 const { contacts: ctrl } = require("../../controllers");
 
-// const validateMiddleware = validation(schema);
-
 const router = express.Router();
 
 router.get("/", ctrlWrapper(ctrl.getAll));
