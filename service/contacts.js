@@ -1,7 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model } = require('mongoose');
 const handleSchemaError = require('../helpers/handleSchemaError');
 const Joi = require('joi');
+
+const nameRegex = /^[A-Za-zА-Яа-я]{2,}\d*$/;
+const nameErrorMessage =
+  'Only letters and numbers are allowed for the name, letters first, min two letters';
 
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const emailErrorMessage = "Email format doesn't match";
@@ -15,6 +18,8 @@ const contactSchema = new Schema(
     name: {
       type: String,
       required: [true, 'Set name for contact'],
+      match: [nameRegex, nameErrorMessage],
+      unique: true,
     },
     email: {
       type: String,
@@ -38,7 +43,8 @@ const contactSchema = new Schema(
 contactSchema.post('save', handleSchemaError);
 
 const addSchema = Joi.object({
-  name: Joi.string().required().messages({
+  name: Joi.string().pattern(nameRegex).required().messages({
+    'string.pattern.base': nameErrorMessage,
     'string.empty': `Name cannot be empty`,
     'any.required': `Name is required`,
   }),
@@ -58,12 +64,12 @@ const toggleFavorite = Joi.object({
   favorite: Joi.boolean().required(),
 });
 
-const Contact = mongoose.model('contacts', contactSchema);
+const Contact = model('contact', contactSchema);
 
 module.exports = {
+  Contact,
   joi: {
     addSchema,
     toggleFavorite,
   },
-  Contact,
 };
