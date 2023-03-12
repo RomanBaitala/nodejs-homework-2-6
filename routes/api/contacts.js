@@ -1,6 +1,10 @@
 const express = require('express');
-const { isValidObject, validation } = require('../../middlewares');
-const { joi } = require('../../service/contacts');
+const {
+  isValidObject,
+  validation,
+  authentificate,
+} = require('../../middlewares');
+const { joi } = require('../../models/contacts');
 const {
   add,
   getAll,
@@ -11,15 +15,15 @@ const {
 
 const router = express.Router();
 
-router.get('/', getAll);
+router.get('/', authentificate, getAll);
 
-router.get('/:contactId', isValidObject, getById);
+router.get('/:contactId', authentificate, isValidObject, getById);
 
-router.post('/', validation(joi.schema), add);
+router.post('/', authentificate, validation(joi.schema), add);
 
-router.delete('/:contactId', isValidObject, removeById);
+router.delete('/:contactId', authentificate, isValidObject, removeById);
 
-router.put('/:contactId', validation(joi.schema), updateById);
+router.put('/:contactId', authentificate, validation(joi.schema), updateById);
 
 router.patch(
   '/:contactId/favorite',

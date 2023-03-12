@@ -1,5 +1,5 @@
 const createError = require('http-errors');
-const { Contact } = require('../../service/contacts');
+const { Contact } = require('../../models/contacts');
 
 const removeById = async (req, res) => {
   const contacts = await Contact.findByIdAndRemove(req.params.contactId);
