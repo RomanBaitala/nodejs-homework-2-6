@@ -6,6 +6,9 @@ const { updateById } = require('./contacts/updateById');
 
 const { registration } = require('./auth/registration');
 const { login } = require('./auth/login');
+const { getCurrent } = require('./auth/getCurrent');
+const { logout } = require('./auth/logout');
+const { updateSubscription } = require('./auth/updateSub');
 
 const ctrlWrapper = require('../helpers/ctrlWrapper');
 
@@ -18,4 +21,7 @@ module.exports = {
 
   registration: ctrlWrapper(registration),
   login: ctrlWrapper(login),
+  getCurrent: ctrlWrapper(getCurrent),
+  logout: ctrlWrapper(logout),
+  updateSub: ctrlWrapper(updateSubscription),
 };

@@ -4,7 +4,7 @@ const {
   validation,
   authentificate,
 } = require('../../middlewares');
-const { joi } = require('../../models/contacts');
+const { schemas } = require('../../models/contacts');
 const {
   add,
   getAll,
@@ -19,16 +19,21 @@ router.get('/', authentificate, getAll);
 
 router.get('/:contactId', authentificate, isValidObject, getById);
 
-router.post('/', authentificate, validation(joi.schema), add);
+router.post('/', authentificate, validation(schemas.addSchema), add);
 
 router.delete('/:contactId', authentificate, isValidObject, removeById);
 
-router.put('/:contactId', authentificate, validation(joi.schema), updateById);
+router.put(
+  '/:contactId',
+  authentificate,
+  validation(schemas.addSchema),
+  updateById
+);
 
 router.patch(
   '/:contactId/favorite',
   isValidObject,
-  validation(joi.togglefavorite),
+  validation(schemas.togglefavorite),
   updateById
 );
 

@@ -63,12 +63,14 @@ const toggleFavorite = Joi.object({
   favorite: Joi.boolean().required(),
 });
 
+const schemas = {
+  addSchema,
+  toggleFavorite,
+};
+
 const Contact = model('contacts', contactSchema);
 
 module.exports = {
-  joi: {
-    addSchema,
-    toggleFavorite,
-  },
+  schemas,
   Contact,
 };

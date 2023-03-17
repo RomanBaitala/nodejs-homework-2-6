@@ -29,7 +29,7 @@ app.use((err, _, res, __) => {
   // console.log(err.stack);
   res.status(err.status).json({
     status: 'failed',
-    code: err.status,
+    code: err.status || 500,
     message: err.message,
   });
 });
