@@ -33,7 +33,7 @@ router.put(
 router.patch(
   '/:contactId/favorite',
   isValidObject,
-  validation(schemas.togglefavorite),
+  validation(schemas.toggleFavorite),
   updateById
 );
 
