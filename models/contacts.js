@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const handleSchemaError = require('../helpers/handleSchemaError');
+const { Schema, model } = require('mongoose');
 const Joi = require('joi');
+
+const handleSchemaError = require('../helpers/handleSchemaError');
 
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const emailErrorMessage = "Email format doesn't match";
@@ -31,6 +31,11 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -58,12 +63,14 @@ const toggleFavorite = Joi.object({
   favorite: Joi.boolean().required(),
 });
 
-const Contact = mongoose.model('contacts', contactSchema);
+const schemas = {
+  addSchema,
+  toggleFavorite,
+};
+
+const Contact = model('contacts', contactSchema);
 
 module.exports = {
-  joi: {
-    addSchema,
-    toggleFavorite,
-  },
+  schemas,
   Contact,
 };
