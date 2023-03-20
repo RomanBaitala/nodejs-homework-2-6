@@ -1,10 +1,6 @@
 const express = require('express');
 
-const {
-  isValidObject,
-  validation,
-  authentificate,
-} = require('../../middlewares');
+const { validation, authentificate, upload } = require('../../middlewares');
 const { schemas } = require('../../models/user');
 const {
   registration,
@@ -12,6 +8,7 @@ const {
   getCurrent,
   logout,
   updateSub,
+  changeAvatar,
 } = require('../../controllers/index');
 
 const router = express.Router();
@@ -23,6 +20,8 @@ router.post('/login', validation(schemas.loginSchema), login);
 router.get('/current', authentificate, getCurrent);
 
 router.post('/logout', authentificate, logout);
+
+router.patch('/avatar', authentificate, upload.single('avatar'), changeAvatar);
 
 router.patch(
   '/users',

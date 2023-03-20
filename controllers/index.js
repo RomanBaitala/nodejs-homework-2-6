@@ -9,6 +9,7 @@ const { login } = require('./auth/login');
 const { getCurrent } = require('./auth/getCurrent');
 const { logout } = require('./auth/logout');
 const { updateSubscription } = require('./auth/updateSub');
+const { changeAvatar } = require('./auth/changeAvatar');
 
 const ctrlWrapper = require('../helpers/ctrlWrapper');
 
@@ -24,4 +25,5 @@ module.exports = {
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
   updateSub: ctrlWrapper(updateSubscription),
+  changeAvatar: ctrlWrapper(changeAvatar),
 };
