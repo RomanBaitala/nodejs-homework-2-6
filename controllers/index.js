@@ -5,6 +5,8 @@ const { removeById } = require('./contacts/removeById');
 const { updateById } = require('./contacts/updateById');
 
 const { registration } = require('./auth/registration');
+const { verifyEmail } = require('./auth/verifyEmail');
+const {resendVerifyEmail} = require('./auth/resendVerifyEmail')
 const { login } = require('./auth/login');
 const { getCurrent } = require('./auth/getCurrent');
 const { logout } = require('./auth/logout');
@@ -21,9 +23,11 @@ module.exports = {
   updateById: ctrlWrapper(updateById),
 
   registration: ctrlWrapper(registration),
+  verifyEmail: ctrlWrapper(verifyEmail),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
   updateSub: ctrlWrapper(updateSubscription),
   changeAvatar: ctrlWrapper(changeAvatar),
+  resendVerifyEmail: ctrlWrapper(resendVerifyEmail)
 };

@@ -9,11 +9,17 @@ const {
   logout,
   updateSub,
   changeAvatar,
+  verifyEmail,
+  resendVerifyEmail,
 } = require('../../controllers/index');
 
 const router = express.Router();
 
 router.post('/register', validation(schemas.registerSchema), registration);
+
+router.get('/verify/:verificationCode', verifyEmail);
+
+router.post('/verify', validation(schemas.emailSchema), resendVerifyEmail);
 
 router.post('/login', validation(schemas.loginSchema), login);
 
